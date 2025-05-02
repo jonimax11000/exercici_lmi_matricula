@@ -14,6 +14,13 @@ const PORT = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 
+// Crear directorio uploads si no existe
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log(`Directorio ${uploadsDir} creado exitosamente`);
+}
+
 // Càrrega de middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -35,7 +42,7 @@ app.post('/enviar-matricula', async (req, res) => {
         // 2. Generar XML amb les dades
         const xmlPath = path.join(__dirname, 'uploads', 'matricula.xml');
         const xmlContent = generarXML(dadesMatricula);
-        fs.writeFileSync(xmlPath, xmlContent);
+        fs.writeFileSync(xmlPath, xmlContent, 'utf8');
 
         // 3. Aplicar transformació XSLT → XSL-FO
         const foPath = path.join(__dirname, 'uploads', 'matricula.fo');
@@ -61,11 +68,29 @@ function generarXML(dades) {
 
     Amb les dades rebudes, generem un XML, amb el format corresponent (veieu exemple)
     */
-    return `
+
+    const json = JSON.parse(dades.matricula);
+    console.log(json);
+
+    var xml = `
 <matricula>
-  ...
-</matricula>
-    `;
+  <alumne>
+    <nom>${json.nom}</nom>
+    <cognoms>${json.cognoms}</cognoms>
+    <email>${json.correu}</email>
+    <adreca>${json.adreca}</adreca>
+    <telefon>${json.telefon}</telefon>
+  </alumne>
+  <cicle>${json.cicle}</cicle>
+  <curs>${json.curs}</curs>
+  <moduls>`;
+    for (let i = 0; i < json.moduls.length; i++) {
+        xml += `    <modul>${json.moduls[i]}</modul>`;
+    }
+xml += `  </moduls>
+</matricula>`;
+
+    return xml;
 }
 
 // Funció auxiliar per aplicar l'XSLT
@@ -80,7 +105,8 @@ function transformarXSLT(xmlPath, foPath) {
         La plantilla la guardareu en ./xslt/matricula.xsl
 
         */
-        const cmd = ``;
+        const xslPath = path.join(__dirname, 'xslt', 'matricula.xsl');
+        const cmd = `xsltproc "${xslPath}" "${xmlPath}" > "${foPath}"`;
 
         exec(cmd, (error, stdout, stderr) => {
             if (error) {

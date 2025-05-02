@@ -11,12 +11,12 @@
   <curs>2</curs>
   <moduls>
     <modul>Accés a Dades</modul>
-<modul>Desenvolupament d'Interfícies</modul>
-<modul>Programació Multimèdia i Dispositius mòbils</modul>
-<modul>Programació de Serveis i Processos</modul>
-<modul>Sistemes de Gestió Emprssarial</modul>
-<modul>Projecte Intermodular II</modul>
-<modul>Itinerari Personal per a l'Ocupabilitat II</modul>
+    <modul>Desenvolupament d'Interfícies</modul>
+    <modul>Programació Multimèdia i Dispositius mòbils</modul>
+    <modul>Programació de Serveis i Processos</modul>
+    <modul>Sistemes de Gestió Emprssarial</modul>
+    <modul>Projecte Intermodular II</modul>
+    <modul>Itinerari Personal per a l'Ocupabilitat II</modul>
   </moduls>
 </matricula>
     
