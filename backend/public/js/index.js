@@ -61,7 +61,7 @@ function actualitzarModuls() {
 
 
     // Netegem els mòduls anteriors
-    modulsFieldset.innerHTML = '<legend>Mòduls</legend>';
+    modulsFieldset.innerHTML = "<legend>Mòduls</legend>";
     var llistaModulsDiv=document.createElement('div');
     llistaModulsDiv.classList.add("llistaModuls");
     modulsFieldset.appendChild(llistaModulsDiv);
@@ -80,7 +80,7 @@ function actualitzarModuls() {
     // Recorrem els mòduls i els afegim al formulari
     modulsCurs.forEach(modul => {
         // Creem el label i el checkbox
-        var label = "<label><input type='checkbox' name='moduls' value='"+modul+"'> "+modul+"</label>";
+        var label = '<label><input type="checkbox" name="moduls" value="'+modul+'" checked="true"> '+modul+'</label>';
         llistaModulsDiv.insertAdjacentHTML('beforeend', label);
     });
 }

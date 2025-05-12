@@ -14,13 +14,6 @@ const PORT = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 
-// Crear directorio uploads si no existe
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-    console.log(`Directorio ${uploadsDir} creado exitosamente`);
-}
-
 // Càrrega de middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -70,7 +63,6 @@ function generarXML(dades) {
     */
 
     const json = JSON.parse(dades.matricula);
-    console.log(json);
 
     var xml = `
 <matricula>
@@ -85,7 +77,7 @@ function generarXML(dades) {
   <curs>${json.curs}</curs>
   <moduls>`;
     for (let i = 0; i < json.moduls.length; i++) {
-        xml += `    <modul>${json.moduls[i]}</modul>`;
+        xml += "    <modul>"+json.moduls[i]+"</modul>";
     }
 xml += `  </moduls>
 </matricula>`;
